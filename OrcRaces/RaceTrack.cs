@@ -21,7 +21,13 @@ namespace OrcRaces
         bool noWinner = true; // пока нетПобедителя = правда игра продолжается :)
 
 
+        private void RaceTrack_Load(object sender, EventArgs e)
+        /// Назначение: выполняется во время загрузки формы (как бы подготовка).
+        {
+            // TODO: Создай двух других орков и сделай так чтоб они бежали! (это см. ниже :))
+            momOrc = new Orc("Mamma Orc", mommyOrc);
 
+        }
 
         private void buttonRun_Click(object sender, EventArgs e)
         /// Назначение: запускает все что надо по событию "нажата кнопка погнали".
@@ -31,21 +37,16 @@ namespace OrcRaces
             // до тех пор пока нет победителя...
             while (noWinner)
             {
-                momOrc.Move(); // маманя орк делает новый рывок!..
-                if (momOrc.AmIAtFinish()) // но может быть она уже пришла к финишу?.. Если да -
+                 // маманя орк делает новый рывок!..
+                 // но может быть она уже пришла к финишу?.. Если да -
                 {
-                    winner = momOrc; // объявляем ее победителем
-                    noWinner = false; // снимаем флаг "нет победителя"
-                    break; // и выходим из цикла
+                    // объявляем ее победителем
+                    // снимаем флаг "нет победителя" - cтавим его в false
+                    // и выходим из цикла
                 }
 
-                uglyOrc.Move();
-                if (uglyOrc.AmIAtFinish())
-                {
-                    winner = uglyOrc;
-                    noWinner = false;
-                    break;
-                }
+                // TODO: Пусть остальные орки тоже участвуют в забеге
+
             }
 
             // Итак, кто-то добежал до финиша! Объявим победителя:
@@ -54,23 +55,12 @@ namespace OrcRaces
             // TODO: Для продвинутых - если переключатель = победитель то сообщить что ты выиграл спор.
             // Как это сделать? :)
 
-            if ((winner == momOrc && chooseMomOrc.Checked) ||
-                (winner == uglyOrc && chooseUglyOrc.Checked))
-            {
-                MessageBox.Show("Поздравляем, ты выиграл спор!", "Итог спора");
-            }
-            else
-            {
-                MessageBox.Show("Увы, ты проиграл спор!", "Итог спора");
-            }
-
 
             // Снова включим контролы
             setControls(true);
 
             // Вернем всех на исходную :)
             momOrc.ToStart();
-            uglyOrc.ToStart();
             noWinner = true;
 
         }
@@ -96,13 +86,7 @@ namespace OrcRaces
             }
         }
 
-        private void RaceTrack_Load(object sender, EventArgs e)
-        {
-            // TODO: Создай двух других орков и сделай так чтоб они бежали! (это выше :))
 
-            momOrc = new Orc("Mamma Orc", mommyOrc);
-            uglyOrc = new Orc("Ugly Orc", fighterOrc);
-        }
 
         public RaceTrack()
         /// Это конструктор формы RaceTrack.
